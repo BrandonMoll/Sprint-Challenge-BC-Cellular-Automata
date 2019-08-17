@@ -10,7 +10,7 @@ def get_new_value(old_gen, old_automata):
         middle = old_automata[i+1]
         right = old_automata[i+2]
         combined = f'{current}{middle}{right}'
-        effected = i + 51
+        effected = i + 50
         try:
             if combined == '111':
                 new_automata[effected] = 0
