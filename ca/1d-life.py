@@ -1,10 +1,37 @@
 import pygame, random
 
 def get_new_value(old_gen, old_automata):
-    # TBC - add code to generate the next row of cells,
-    # then replace the return statement below to
-    # return the updated automata
-    return old_automata
+    new_automata  = [0] * len(old_automata)
+    for i in range(len(old_automata)):
+        new_automata[i] = old_automata[i]
+
+    for i in range(len(old_automata)-3):
+        current = old_automata[i]
+        middle = old_automata[i+1]
+        right = old_automata[i+2]
+        combined = f'{current}{middle}{right}'
+        effected = i + 50
+        try:
+            if combined == '111':
+                new_automata[effected] = 0
+            elif combined =='110':
+                new_automata[effected] = 1
+            elif combined =='101':
+                new_automata[effected] = 1
+            elif combined =='100':
+                new_automata[effected] = 1
+            elif combined =='011':
+                new_automata[effected] = 1
+            elif combined =='010':
+                new_automata[effected] = 1
+            elif combined =='001':
+                new_automata[effected] = 1
+            elif combined =='000':
+                new_automata[effected] = 0
+        except:
+            print('end of list')
+
+    return new_automata
 
 # Define some colors and other constants
 BLACK = (0, 0, 0)

@@ -9,6 +9,9 @@ from timeit import default_timer as timer
 
 import random
 
+test1 = 'http://lambda-coin-test-3.herokuapp.com'
+main = "https://lambda-coin.herokuapp.com"
+
 
 def proof_of_work(last_proof):
     """
@@ -24,6 +27,8 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     #  TODO: Your code here
+    while valid_proof(last_proof, proof) is False:
+        proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -38,7 +43,16 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    guess = f'{last_hash}{proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    prev_last_digits = str(last_hash)[-6:]
+    new_beg_digits = guess_hash[0:6]
+
+    if prev_last_digits == new_beg_digits:
+        return True
+    else:
+        return False
+
 
 
 if __name__ == '__main__':
@@ -46,7 +60,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        node = "https://lambda-coin.herokuapp.com"
+        node = main
 
     coins_mined = 0
 
